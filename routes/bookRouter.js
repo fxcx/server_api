@@ -1,4 +1,3 @@
-// vamos a empezar a separar el codigo tal como en el html no esten los escript en html
 import { Router } from 'express' // inicializams el router que nos da express
 import { bookController } from '../controllers/bookController.js'
 //todo los que sea app lo pasamos a las router para terner codigo mas ordenado

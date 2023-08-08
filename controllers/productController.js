@@ -22,7 +22,7 @@ export const productController = () => {
     }
   
 
-  const getAllProducts = async (req, res, next) => {
+  const getAllProducts = async (_req, res, next) => {
     try {
       const products = await prisma.product.findMany();
       res.json(products);
@@ -37,7 +37,7 @@ export const productController = () => {
       const { id } = req.params;
       const product = await prisma.product.findUnique({
         where: {
-          id: parseInt(id),
+          id: Number(id),
         },
       });
       if (!product) {
@@ -58,7 +58,7 @@ export const productController = () => {
       const { name, price, stock, category } = req.body;
       const updatedProduct = await prisma.product.update({
         where: {
-          id: parseInt(id),
+          id: Number(id),
         },
         data: {
           name,

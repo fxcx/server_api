@@ -19,48 +19,38 @@ model User {
   birthday  String
   address   String
   isAdmin   Boolean   @default(false)
-  role      String // Agregado campo de rol
-  createdAt DateTime
+  role      String
+  createdAt DateTime  @default(now())
   updatedAt DateTime
   deleteAt  DateTime?
   Pedido    Pedido[]
   Pago      Pago[]
 }
 
-model Category {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  createdAt DateTime
-  updatedAt DateTime
-  deleteAt  DateTime?
-  products  Product[]
-}
 
 model Product {
   id         Int       @id @default(autoincrement())
   name       String
   price      Float
   stock      Int
-  createdAt  DateTime
+  createdAt  DateTime  @default(now())
   updatedAt  DateTime
-  deleteAt   DateTime?
-  category   Category  @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  category   String[]  // un arrglo de categorias / ahorrarme una tabla
   Pedido     Pedido?   @relation(fields: [pedidoId], references: [id])
   pedidoId   Int?
 }
 
 model Pedido {
   id         Int       @id @default(autoincrement())
-  estado     String // Agrega el estado del pedido (pendiente, en proceso, enviado, etc.)
-  total      Float // Agregado el total calculado del pedido
-  metodoPago String // Agregado el método de pago (Mercado Pago)
-  createdAt  DateTime
+  estado     String
+  total      Float
+  metodoPago String
+  createdAt  DateTime  @default(now())
   updatedAt  DateTime
   deleteAt   DateTime?
   client     User      @relation(fields: [clientId], references: [id])
   clientId   Int
-  productos  Product[] // Relación con los productos en el pedido
+  productos  Product[]
   Pago       Pago[]
   Envio      Envio[]
 }
@@ -68,8 +58,8 @@ model Pedido {
 model Pago {
   id         Int       @id @default(autoincrement())
   monto      Float
-  metodoPago String   
-  createdAt  DateTime
+  metodoPago String
+  createdAt  DateTime  @default(now())
   updatedAt  DateTime
   deleteAt   DateTime?
   user       User      @relation(fields: [userId], references: [id])
@@ -81,8 +71,8 @@ model Pago {
 model Envio {
   id        Int       @id @default(autoincrement())
   estado    String // Agrega el estado del envío (pendiente, en camino, entregado, etc.)
-  address   String // Agrega la dirección de envío
-  createdAt DateTime
+  address   String    @unique
+  createdAt DateTime  @default(now())
   updatedAt DateTime
   deletedAt DateTime?
   Pedido    Pedido?   @relation(fields: [pedidoId], references: [id])

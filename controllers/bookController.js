@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid'
 import httpStatus from '../helpers/httpStatus.js'
 import { getPetitionTime } from '../middlewares/petitionTime.js'
 

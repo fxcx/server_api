@@ -1,9 +1,9 @@
 import { Router } from 'express' // inicializams el router que nos da express
 import { bookController } from '../controllers/bookController.js'
 //todo los que sea app lo pasamos a las router para terner codigo mas ordenado
-export const bookRoutes = (BOOKS) => { 
+export const bookRoutes = () => { 
   const bookRouter = Router()
-  const { getBooks, getBookById, createBook, updateBook, deleteBook } = bookController(BOOKS)
+  const { getBooks, getBookById, createBook, updateBook, deleteBook } = bookController()
 
   bookRouter.route('/books')
     .get(getBooks)

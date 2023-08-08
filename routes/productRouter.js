@@ -5,7 +5,7 @@ export const productRouter = () => {
   const productRouter = Router()
   const { getProduct, getProductById, createdProduct, updateProduct, deleteProduct } = productController()
 
-  productRouter.route('/')
+  productRouter.route('/product')
     .get(getProduct)
     .post(createdProduct)
 

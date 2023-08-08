@@ -25,6 +25,7 @@ model User {
   deleteAt  DateTime?
   Pedido    Pedido[]
   Pago      Pago[]
+  @@map("users")
 }
 
 
@@ -38,6 +39,7 @@ model Product {
   category   String[]  // un arrglo de categorias / ahorrarme una tabla
   Pedido     Pedido?   @relation(fields: [pedidoId], references: [id])
   pedidoId   Int?
+  @@map("product")
 }
 
 model Pedido {
@@ -53,11 +55,12 @@ model Pedido {
   productos  Product[]
   Pago       Pago[]
   Envio      Envio[]
+  @@map("pedido")
 }
 
 model Pago {
   id         Int       @id @default(autoincrement())
-  monto      Float
+  monto      Float      
   metodoPago String
   createdAt  DateTime  @default(now())
   updatedAt  DateTime
@@ -66,6 +69,7 @@ model Pago {
   userId     Int
   pedido     Pedido    @relation(fields: [pedidoId], references: [id])
   pedidoId   Int
+  @@map("pago")
 }
 
 model Envio {
@@ -77,4 +81,5 @@ model Envio {
   deletedAt DateTime?
   Pedido    Pedido?   @relation(fields: [pedidoId], references: [id])
   pedidoId  Int
+  @@map("envio")
 }

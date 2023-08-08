@@ -1,6 +1,6 @@
-import { Router } from 'express' // inicializams el router que nos da express
+import { Router } from 'express'
 import { userController } from '../controllers/userController.js'
-// odo los que sea app lo pasamos a las router para terner codigo mas ordenado
+
 export const userRouter = () => {
   const userRouter = Router()
   const { getUser, getUserById, createdUser, updateUser, deleteUser } = userController()

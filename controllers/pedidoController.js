@@ -1,86 +1,82 @@
-import { prisma } from '../database/database.js'
-import httpStatus from 'http-status'
+import { prisma } from "../database/database.js";
+import httpStatus from "http-status";
 
 export const pedidoController = () => {
   const createPedido = async (req, res, next) => {
     try {
-      const { estado, total, metodoPago, clientId, productos } = req.body
+      const { estado, total, metodoPago, clientId, productos } = req.body;
       const pedido = await prisma.pedido.create({
         data: {
           estado,
           total,
           metodoPago,
-          client: {
-            connect: { id: clientId }
-          },
+          clientId,
           productos: {
-            connect: productos.map(producto => ({ id: producto }))
-          }
-        }
-      })
-      res.status(httpStatus.CREATED).json(pedido)
+            connect: productos.map((producto) => ({ id: producto })),
+          },
+        },
+        include: {
+          client: true,
+          productos: true,
+        },
+      });
+      res.status(httpStatus.CREATED).json(pedido);
     } catch (error) {
-      next(error)
-    } finally {
-      await prisma.$disconnect()
+      next(error);
     }
-  }
+  };
 
-  const getAllPedidos = async (_req, res, next) => {
+  const getAllPedidos = async (req, res, next) => {
     try {
       const pedidos = await prisma.pedido.findMany({
         include: {
           client: true,
-          productos: true
-        }
-      })
-      res.json(pedidos)
+          productos: true,
+        },
+      });
+      res.json(pedidos);
     } catch (error) {
-      next(error)
-    } finally {
-      await prisma.$disconnect()
+      next(error);
     }
-  }
+  };
 
   const getPedidoById = async (req, res, next) => {
     try {
-      const { id } = req.params
+      const { id } = req.params;
       const pedido = await prisma.pedido.findUnique({
         where: {
-          id: Number(id)
+          id: Number(id),
         },
         include: {
           client: true,
-          productos: true
-        }
-      })
+          productos: true,
+        },
+      });
       if (!pedido) {
         return res
           .status(httpStatus.NOT_FOUND)
-          .json({ message: "Pedido not found" })
+          .json({ message: "Pedido not found" });
       }
-      res.json(pedido)
+      res.json(pedido);
     } catch (error) {
-      next(error)
-    } finally {
-      await prisma.$disconnect()
+      next(error);
     }
-  }
+  };
 
   const updatePedido = async (req, res, next) => {
     try {
-      const { id } = req.params
-      const { estado, total, metodoPago, productos } = req.body
+      const { id } = req.params;
+      const { estado, total, metodoPago, productos } = req.body;
       const updatedPedido = await prisma.pedido.update({
         where: {
-          id: Number(id)
+          id: Number(id),
         },
         data: {
           estado,
           total,
           metodoPago,
           productos: {
-            set: productos.map(producto => ({ id: producto }))
+            set: productos.map((producto) => ({ id: producto })),
           }
         },
         include: {
@@ -91,8 +87,6 @@ export const pedidoController = () => {
       res.json(updatedPedido)
     } catch (error) {
       next(error)
-    } finally {
-      await prisma.$disconnect()
     }
   }
 
@@ -101,14 +95,12 @@ export const pedidoController = () => {
       const { id } = req.params
       await prisma.pedido.delete({
         where: {
-          id: parseInt(id)
+          id: parseInt(id),
         }
       })
       res.sendStatus(httpStatus.NO_CONTENT)
     } catch (error) {
       next(error)
-    } finally {
-      await prisma.$disconnect()
     }
   }
 

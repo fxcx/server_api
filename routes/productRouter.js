@@ -2,15 +2,17 @@ import { Router } from 'express'
 import { productController } from '../controllers/userController.js'
 
 export const productRouter = () => {
-  const userRouter = Router()
+  const productRouter = Router()
   const { getProduct, getProductById, createdProduct, updateProduct, deleteProduct } = productController()
 
-  userRouter.route('/')
+  productRouter.route('/')
     .get(getProduct)
     .post(createdProduct)
 
-  userRouter.route('/product/:id')
+  productRouter.route('/product/:id')
     .get(getProductById)
     .put(updateProduct)
     .delete(deleteProduct)
+
+  return productRouter
 }

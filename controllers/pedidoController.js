@@ -23,6 +23,8 @@ export const pedidoController = () => {
       res.status(httpStatus.CREATED).json(pedido)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
 
@@ -37,6 +39,8 @@ export const pedidoController = () => {
       res.json(pedidos)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
 
@@ -60,6 +64,8 @@ export const pedidoController = () => {
       res.json(pedido)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
 
@@ -87,6 +93,8 @@ export const pedidoController = () => {
       res.json(updatedPedido)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
 
@@ -101,6 +109,8 @@ export const pedidoController = () => {
       res.sendStatus(httpStatus.NO_CONTENT)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
 

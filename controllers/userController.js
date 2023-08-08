@@ -16,6 +16,8 @@ export const userController = () => {
       res.status(httpStatus.CREATED).json(users)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
 
@@ -25,6 +27,8 @@ export const userController = () => {
       res.status(httpStatus.OK).json(users)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
   const getUserById = async (req, res, next) => {
@@ -38,6 +42,8 @@ export const userController = () => {
       res.status(httpStatus.OK).json(users)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
   const updateUser = async (req, res, next) => {
@@ -58,6 +64,8 @@ export const userController = () => {
       res.status(httpStatus.OK).json(users)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
   const deleteUser = async (req, res, next) => {
@@ -71,6 +79,8 @@ export const userController = () => {
       res.status(httpStatus.OK).json(users)
     } catch (error) {
       next(error)
+    } finally {
+      await prisma.$disconnect()
     }
   }
   return {

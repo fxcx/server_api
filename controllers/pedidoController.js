@@ -28,7 +28,7 @@ export const pedidoController = () => {
     }
   }
 
-  const getAllPedidos = async (req, res, next) => {
+  const getAllPedidos = async (_req, res, next) => {
     try {
       const pedidos = await prisma.pedido.findMany({
         include: {
@@ -46,7 +46,7 @@ export const pedidoController = () => {
 
   const getPedidoById = async (req, res, next) => {
     try {
-      const { id } = req.params
+      const { id } = req.params // obtengo el id del parametro
       const pedido = await prisma.pedido.findUnique({
         where: {
           id: Number(id)

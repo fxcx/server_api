@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { productController } from '../controllers/userController.js'
+import { productController } from '../controllers/productController.js'
 
-export const productRouter = () => {
+export const productRoutes = () => {
   const productRouter = Router()
   const { getProduct, getProductById, createdProduct, updateProduct, deleteProduct } = productController()
 

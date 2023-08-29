@@ -12,3 +12,6 @@ services:
       - "5432:5432"
     volumes:
       - ./docker-data/db:/var/lib/postgresql/data
+      #mysql -> /var/lib/mysql
+      #mongo-data:data/db
+      

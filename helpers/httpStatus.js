@@ -1,4 +1,4 @@
-// status code por variable/ mas legible / buena practica
+// status code / mas legible / buena practica
 const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,

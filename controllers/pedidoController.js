@@ -59,7 +59,7 @@ export const pedidoController = () => {
       if (!pedido) {
         return res
           .status(httpStatus.NOT_FOUND)
-          .json({ message: "Pedido not found" })
+          .json({ message: 'Pedido not found' })
       }
       res.json(pedido)
     } catch (error) {
